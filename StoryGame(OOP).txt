@@ -1,0 +1,259 @@
+
+                                                      // header files
+#include<iostream>
+#include<string>
+#include<windows.h>
+using namespace std;
+                                                     // Abstract Class
+class Game
+{                           
+private:
+    int play, exit;
+public:
+    int choice;
+    virtual void Choice() = 0;
+};
+                                           //Inheritence (derived from base Game class)
+class Start : public Game
+{
+
+public:
+    int story;
+    void Choice() override
+    {
+       
+        cin >> choice;
+       
+    }
+    void set_story(int value)
+    {
+        story = value;
+    }
+};
+
+class Story
+{
+private:
+                                                       //Composition
+    Start start;
+public:
+    void select_story(int value)
+    {
+        start.set_story(value);
+    }
+
+};
+
+class Character
+{
+private:
+    int male, female;
+public:
+    Character(): male(0), female(0) {};
+    Character(int character_choice) :
+        male{ (character_choice == 1) ? 1 : 0 },
+        female{ (character_choice == 2) ? 0 : 1 }
+    {}
+
+};
+
+class Hero
+{
+private:
+    string name;
+                                                       //Aggregation
+    Character *character;
+public:
+    Hero(string name, Character *character)
+    {
+        this->name = name;
+        this->character = character;
+    }
+};
+
+class script
+{                                                     // protected
+protected:
+    string script_array[11] = {"The old house stood on a hill, overlooking the town. It had been empty for years, and people said it was haunted. No one dared to go near it, at least not at night.",
+    "One night, a group of teenagers decided to go to the house to see if the rumors were true. They snuck out of their homes and made their way up the hill. When they got to the house, they saw that it was even more creepy than they had imagined. The windows were boarded up, and the paint was peeling. The teenagers stood in front of the house, too scared to go inside.",
+    "'I don't think we should do this,' said one of the teenagers",
+        // option
+    "The teenagers took a deep breath and opened the door to the house. They stepped inside and were immediately hit with a foul smell. The house was dark and dusty, and the air was thick with cobwebs. The teenagers could hear the sound of rats scurrying in the walls.",
+    "'This is it,' said one of the teenagers. 'We're going to die.'",
+        //option
+    "The teenagers started to back away, but it was too late. A figure appeared out of the shadows. It was a tall, thin man with long, white hair. His eyes were glowing red, and his teeth were sharp.",
+    "'Welcome to my home,' said the man. ' I've been expecting you.'",
+    "The teenagers" 
+        // option
+   ," but the man was too fast.He caught them one by one and dragged them back into the house.The teenagers were never seen again.",
+    "The next day, the police found the teenagers' bodies in the house. They had been brutally murdered. The police never found the man who killed them, but the townspeople said that it was the ghost of the old man who had once owned the house.",
+    "The house on the hill is still empty, and people say that it is still haunted. No one dares to go near it, at least not at night."
+    };
+    string script_array2[10] = { "In a small village nestled at the edge of a mystical forest, there lived a curious young girl named Mia. Her days were filled with mundane chores, but her heart yearned for excitement and adventure.",
+       "One day, as Mia explored the outskirts of the village, she stumbled upon an ancient map hidden within a hollowed tree. The map depicted a hidden treasure rumored to grant its discoverer a single wish. Excitement coursed through Mia's veins as she decided to embark on a quest to find the treasure.",
+        //option: map or durbeen
+        "Mia ventured into the depths of the enchanted forest. Tall trees whispered secrets, and magical creatures watched her with curiosity. The forest, however, was not without its perils. Mia encountered treacherous ravines, rickety bridges, and even a mischievous band of goblins. But with each obstacle, she grew stronger and more resolved.",
+        "Finally, after days of relentless searching, Mia stumbled upon a hidden clearing bathed in golden sunlight. At the center stood an ancient stone pedestal, and atop it rested a shimmering golden key. Mia's heart raced as she realized this was the key to the treasure she sought.",
+        "Without hesitation, Mia grasped the key",
+        // Run or catwalk
+        "To the designated location marked on the map.She arrived at the entrance of an ancient cave, its mouth shrouded in mystery.Taking a deep breath, she stepped inside, her every footfall echoing through the cavern.",
+        "As Mia ventured deeper into the cave, she encountered intricate puzzles and ancient traps designed to guard the treasure. With wit and perseverance, she solved the puzzles and skillfully avoided the traps, inching closer to her goal.",
+        "Finally, at the heart of the cave, Mia discovered the fabled treasure—a small, glowing crystal. Holding it in her hands, she felt its energy pulsating with ancient power. Closing her eyes, Mia ",
+        //option: make a wish or not        
+        "In an instant, the crystal shattered, releasing a burst of radiant light. Mia emerged from the cave, her heart filled with a profound sense of accomplishment. As she returned to the village, she witnessed a remarkable transformation. The crops flourished, the once-parched river flowed with crystal-clear water, and smiles adorned the faces of her fellow villagers.",
+        "Word spread of Mia's adventure and the selfless wish she had made. She became a local legend, admired for her bravery and compassion. And from that day forward, Mia's life was forever changed. The ordinary girl who had longed for adventure became a symbol of hope and inspiration, reminding everyone that even the smallest of actions can lead to great transformations.",
+    };
+  
+};
+
+class options
+{
+protected:
+    string options_array[3][2] = { {"1)  Come on, Let's just see what's inside","2)  We've come so far, I cannot go back"},
+        {"1) These are just creepy rats","2) Don't scare, we got it"},{"1) Scream","2) Run to the Door"}};
+    string options_array2[3][2] = { {"1) Take a Map","2) Take Binoculars"} ,{"1) and Rushed towards","2) and Walked towards"}
+        ,{"1) Make a Wish","2) Don't make a Wish"} };
+};
+
+                                                    // Multiple Inheritence
+class Play : public options, public script 
+{
+private:
+    Start start;
+    int choice = 0;
+public:
+    Play(int st)
+    {
+        if (st == 1)
+        {
+            for (int i = 0; i < 11; i++)
+            {
+                cout << script_array[i] << endl << endl;
+
+                for (int k = 0; k < 2; k++)
+                {
+                    if (i == 2)
+                    {
+                        cout << options_array[0][k] << endl << endl;
+                    }
+                    else if (i == 5)
+                    {
+                        cout << options_array[1][k] << endl << endl;
+
+                    }
+                    else if (i == 8)
+                    {
+                        cout << options_array[2][k] << endl << endl;
+                    }
+                }
+
+                if (i == 2 || i == 5 || i == 8)
+                {
+                    cout << "\t\t\t\t\t\tPLEASE ENTER YOUR OPTION" << endl << endl;
+                    cout << "\t\t\t\t\t\t";
+                    cin >> choice;
+                    cout << endl << endl;
+
+                }
+            }
+
+        }
+        else if (st == 2)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                cout << script_array2[i] << endl << endl;
+
+                for (int k = 0; k < 2; k++)
+                {
+                    if (i == 1)
+                    {
+                        cout << options_array2[0][k] << endl << endl;
+                    }
+                    else if (i == 4)
+                    {
+                        cout << options_array2[1][k] << endl << endl;
+
+                    }
+                    else if (i == 7)
+                    {
+                        cout << options_array2[2][k] << endl << endl;
+                    }
+                }
+
+                if (i == 1 || i == 4 || i == 7)
+                {
+                    cout << "\t\t\t\t\t\tPLEASE ENTER YOUR OPTION" << endl << endl;
+                    cout << "\t\t\t\t\t\t";
+                    cin >> choice;
+                    cout << endl << endl;
+
+                }
+            }
+        }
+    }
+
+};
+
+int main()
+{
+
+    
+
+    Start start;
+
+
+    cout << "\t\t\t\t\t\t\t1) Play\n" << endl << endl;
+    cout << "\t\t\t\t\t\t\t2) Exit\n\n" << endl << endl;
+    cout << "->Select the option" << endl;
+    start.Choice();
+                                                     // Condition for exit
+    if (start.choice == 2)
+    {
+        return 0;
+    }
+
+    Story story;
+    
+
+
+    int story_choice;
+    cout << "\t\t\t\t\t\t\t1) Horror\n" << endl<<endl;
+    cout << "\t\t\t\t\t\t\t2)Adventure\n\n" << endl<<endl;
+    cout << "->Select the Story: " << endl<<endl;
+    cin >> story_choice;
+     
+    story.select_story(story_choice);
+
+   
+
+    int character_choice;
+    cout << "\t\t\t\t\t\t\t1) Male\n" << endl<<endl;
+    cout << "\t\t\t\t\t\t\t2) Female\n\n" << endl<<endl;
+    cout << "->Select the Player: " << endl<<endl;
+    cin >> character_choice;
+
+    Character character = Character(character_choice);
+
+    string player_name;
+    cout << "\t\t\t\t\t\t\tPlayer name " << endl;
+    cout << endl;
+    cout << "\t\t\t\t\t\t\t";
+    cin >> player_name;
+    cout << endl;
+    Hero hero(player_name, &character);
+    
+    Sleep(3000);
+    system("cls");
+    
+    Play play(story_choice);
+
+    cout << endl << endl;
+    
+    Sleep(2000);
+    system("cls");
+    cout << "\t\t\t\t\t\t\t<-THE END->";
+
+
+    
+}
